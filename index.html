@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Meal Prep Planner</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Meal Prep Planner</h1>
+    <p>For athletes planning a day of eating: pick meals, see calories and protein against your targets, then generate a grocery list.</p>
+  </header>
+
+  <main>
+    <section aria-labelledby="targets-heading">
+      <h2 id="targets-heading">1. Set your daily targets</h2>
+      <form id="target-form" novalidate>
+        <label for="cal-target">Calorie target (1200 to 6000)</label>
+        <input id="cal-target" type="number" min="1200" max="6000" step="50" value="2800">
+
+        <label for="pro-target">Protein target in grams (20 to 400)</label>
+        <input id="pro-target" type="number" min="20" max="400" step="5" value="180">
+
+        <button type="submit">Update targets</button>
+        <p id="target-message" class="message" role="alert"></p>
+      </form>
+      <p class="note">Sample numbers only. Ask a registered dietitian or your team staff for targets that fit you.</p>
+    </section>
+
+    <section aria-labelledby="meals-heading">
+      <h2 id="meals-heading">2. Pick your meals</h2>
+      <p>Use + and - to choose servings of each sample meal.</p>
+      <ul id="meal-list" aria-label="Sample meals"></ul>
+
+      <div id="totals" aria-live="polite">
+        <p id="cal-text"></p>
+        <progress id="cal-bar" max="100" value="0" aria-label="Calories toward target"></progress>
+        <p id="pro-text"></p>
+        <progress id="pro-bar" max="100" value="0" aria-label="Protein toward target"></progress>
+      </div>
+      <button id="clear-meals" type="button" class="secondary">Clear all meals</button>
+    </section>
+
+    <section aria-labelledby="grocery-heading">
+      <h2 id="grocery-heading">3. Grocery list</h2>
+      <button id="make-list" type="button">Generate grocery list</button>
+      <p id="grocery-message" class="message" role="alert"></p>
+      <ul id="grocery-list" aria-label="Grocery list"></ul>
+    </section>
+  </main>
+
+  <footer>
+    <p>Made for AI 101. Meals and nutrition numbers are rough made-up samples, not medical or dietary advice. Nothing is saved or sent anywhere.</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

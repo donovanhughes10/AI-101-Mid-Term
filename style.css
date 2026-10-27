@@ -1,0 +1,149 @@
+:root {
+  --bg: #f6f7fb;
+  --card: #ffffff;
+  --text: #1c2333;
+  --muted: #5a6478;
+  --accent: #2b59c3;
+  --accent-dark: #1d3f94;
+  --error: #b3261e;
+  --ok: #1b7a3d;
+  --border: #d7dbe6;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+}
+
+header, main, footer {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+header h1 { margin-bottom: 0.25rem; }
+header p, footer p { color: var(--muted); margin-top: 0; }
+
+section {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+h2 { margin-top: 0; font-size: 1.2rem; }
+
+label { display: block; font-weight: 600; margin-top: 0.75rem; }
+
+input {
+  width: 100%;
+  padding: 0.6rem;
+  margin-top: 0.25rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+button {
+  background: var(--accent);
+  color: #fff;
+  border: 0;
+  border-radius: 6px;
+  padding: 0.6rem 1rem;
+  font-size: 1rem;
+  margin-top: 0.75rem;
+  cursor: pointer;
+}
+
+button:hover { background: var(--accent-dark); }
+
+button.secondary {
+  background: transparent;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  margin-top: 0;
+  padding: 0.3rem 0.6rem;
+}
+
+:focus-visible {
+  outline: 3px solid #f2a900;
+  outline-offset: 2px;
+}
+
+.message { min-height: 1.4em; margin: 0.5rem 0 0; font-weight: 600; }
+.message.error { color: var(--error); }
+.message.ok { color: var(--ok); }
+
+ul, ol { padding-left: 1.25rem; }
+
+#task-list li, #plan-list li {
+  margin: 0.4rem 0;
+}
+
+#task-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  list-style: none;
+  margin-left: -1.25rem;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+
+.block-focus { font-weight: 600; }
+.block-break { color: var(--muted); font-style: italic; }
+.block-current { background: #fff6d6; border-radius: 4px; padding: 0 0.3rem; }
+
+.timer {
+  font-size: 3rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  margin: 0.25rem 0;
+}
+
+.buttons { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.buttons button { margin-top: 0; }
+
+@media (max-width: 480px) {
+  .timer { font-size: 2.4rem; }
+  .buttons button { flex: 1 1 45%; }
+}
+
+/* Meal Prep Planner additions */
+input[type="checkbox"] { width: auto; margin: 0 0.5rem 0 0; }
+label.inline-label { display: inline; font-weight: 400; margin: 0; }
+.note { color: var(--muted); font-size: 0.9rem; }
+
+#meal-list, #grocery-list { list-style: none; padding-left: 0; }
+
+#meal-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 0.6rem;
+  margin: 0.4rem 0;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+
+#grocery-list li { padding: 0.3rem 0; }
+
+.meal-controls { display: flex; align-items: center; gap: 0.5rem; flex-shrink: 0; }
+.meal-controls button { min-width: 2.5rem; min-height: 2.5rem; margin-top: 0; }
+.count { min-width: 1.5rem; text-align: center; font-weight: 700; }
+
+progress { width: 100%; height: 1rem; margin-bottom: 0.5rem; }
+#totals p { margin: 0.5rem 0 0.2rem; font-weight: 600; }
+
+@media (max-width: 480px) {
+  #meal-list li { flex-direction: column; align-items: flex-start; }
+}
