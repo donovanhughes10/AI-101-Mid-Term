@@ -27,6 +27,8 @@
 
   var MAX_SERVINGS = 9;
   var servings = {};
+  var listGenerated = false; // true once the user has generated a grocery list
+  var checkedItems = {};     // ticked grocery items, keyed by "name|unit"
   var calTarget = 2800;
   var proTarget = 180;
 
@@ -76,6 +78,8 @@
     var out = document.getElementById("count-" + id);
     if (out) { out.textContent = next; }
     renderTotals();
+    // Keep an already-generated grocery list in sync with the servings.
+    if (listGenerated) { renderGrocery(); }
   }
 
   function renderMeals() {
@@ -132,23 +136,37 @@
     });
     return Object.keys(combined).sort().map(function (key) {
       var parts = key.split("|");
-      return { name: parts[0], amount: combined[key], unit: parts[1] };
+      return { key: key, name: parts[0], amount: combined[key], unit: parts[1] };
     });
   }
 
+  // Rebuilds the list from the current servings. Ticked items stay ticked
+  // (matched by ingredient + unit); ingredients no longer needed are dropped.
   function renderGrocery() {
     groceryList.innerHTML = "";
     var items = buildGrocery();
     if (!items.length) {
+      listGenerated = true;
+      checkedItems = {};
       setMessage(groceryMessage, "Pick at least one meal first.", "error");
       return;
     }
+    listGenerated = true;
+    var stillNeeded = {};
+    items.forEach(function (it) { stillNeeded[it.key] = true; });
+    Object.keys(checkedItems).forEach(function (k) {
+      if (!stillNeeded[k]) { delete checkedItems[k]; }
+    });
     setMessage(groceryMessage, items.length + " items for your plan.", "ok");
     items.forEach(function (it, i) {
       var li = document.createElement("li");
       var box = document.createElement("input");
       box.type = "checkbox";
       box.id = "g-" + i;
+      box.checked = !!checkedItems[it.key];
+      box.addEventListener("change", function () {
+        if (box.checked) { checkedItems[it.key] = true; } else { delete checkedItems[it.key]; }
+      });
       var label = document.createElement("label");
       label.setAttribute("for", box.id);
       label.className = "inline-label";
@@ -183,6 +201,8 @@
 
   document.getElementById("clear-meals").addEventListener("click", function () {
     servings = {};
+    listGenerated = false;
+    checkedItems = {};
     renderMeals();
     renderTotals();
     groceryList.innerHTML = "";
